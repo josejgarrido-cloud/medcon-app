@@ -138,7 +138,7 @@ export const SupplyManager: React.FC<SupplyManagerProps> = ({
         <button onClick={() => setActiveTab('suppliers')} className={`px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2 whitespace-nowrap ${activeTab === 'suppliers' ? 'bg-medical-50 text-medical-600' : 'text-slate-600 hover:bg-slate-50'}`}><Truck size={16}/> Proveedores</button>
       </div>
 
-      {/* --- VENDER (Accessible for Assistant) --- */}
+      {/* --- VENDER --- */}
       {activeTab === 'sell' && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-4">
@@ -196,7 +196,7 @@ export const SupplyManager: React.FC<SupplyManagerProps> = ({
         </div>
       )}
 
-      {/* --- INVENTARIO (Read-Only for Assistant, No Edit) --- */}
+      {/* --- INVENTARIO --- */}
       {activeTab === 'inventory' && (
         <div>
            <div className="flex justify-between items-center mb-6">
@@ -306,24 +306,23 @@ export const SupplyManager: React.FC<SupplyManagerProps> = ({
         </div>
       )}
 
-      {/* --- PROVEEDORES (ReadOnly Assistant) --- */}
+      {/* --- PROVEEDORES --- */}
       {activeTab === 'suppliers' && (
         <div>
            <div className="flex justify-between items-center mb-6">
               <h2 className="text-xl font-bold text-slate-800">Proveedores</h2>
-              {!isAssistant && <Button onClick={() => setIsSupplierModalOpen(true)}><Plus size={18} className="mr-2"/> Nuevo Proveedor</Button>}
+              <Button onClick={() => setIsSupplierModalOpen(true)}><Plus size={18} className="mr-2"/> Nuevo Proveedor</Button>
            </div>
            
            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
              {suppliers.map(s => (
-               <div key={s.id} className="bg-white p-4 rounded-xl border border-slate-200 relative group shadow-sm hover:shadow-md transition-shadow">
-                  {!isAssistant && <button onClick={() => onDeleteSupplier(s.id)} className="absolute top-3 right-3 text-slate-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 size={16}/></button>}
+               <div key={s.id} className="bg-white p-4 rounded-xl border border-slate-200 relative group shadow-sm">
+                  <button onClick={() => onDeleteSupplier(s.id)} className="absolute top-3 right-3 text-slate-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 size={16}/></button>
                   <h3 className="font-bold text-slate-800">{s.name}</h3>
-                  <p className="text-sm text-slate-500 mt-1 flex items-center gap-2"><User size={12}/> {s.contact}</p>
-                  <p className="text-sm text-slate-400 flex items-center gap-2"><Truck size={12}/> {s.phone}</p>
+                  <p className="text-sm text-slate-500 mt-1">{s.contact}</p>
+                  <p className="text-sm text-slate-400">{s.phone}</p>
                </div>
              ))}
-             {suppliers.length === 0 && <p className="text-slate-400 col-span-3 text-center">No hay proveedores registrados.</p>}
            </div>
 
            {isSupplierModalOpen && (
